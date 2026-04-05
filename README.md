@@ -1,6 +1,6 @@
 # Temporal Coupling of Neural and BOLD Dynamic States Revealed by Simultaneous Resting-State EEG-fMRI
 
-This repository contains organized source code I used for analysis.
+This repository contains data and code I used for analysis.
 
 ## Dataset
 
@@ -31,5 +31,9 @@ ROI-wise time-series data are located in Data folder of this repository.
   - EEG underwent source localization using eLORETA using MNE-Python.
   - Source-localized EEG time-series were filtered into the delta (1-4 Hz), theta (4-8 Hz), alpha (8-13 Hz), and beta (13-30 Hz) bands.
   - fMRI underwent motion correction, and global signal, white matter, cerebrospinal fluid signal regression.
-  - ROI-wise time series extacted using 100-parcel Schaefer atlas from both modalities. 
+  - ROI-wise time series extacted using 100-parcel Schaefer atlas from both modalities.
+
+## Analysis + Code
+
+
 
