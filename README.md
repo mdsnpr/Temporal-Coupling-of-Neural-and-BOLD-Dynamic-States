@@ -11,7 +11,8 @@ OpenNeuro ds006040: https://openneuro.org/datasets/ds006040/versions/1.0.1
   - 19~42 years old
   - Consists of following tasks:
       - Resting-state / Eyes Closed
-      - Resting-state / Eyes Open <-- We focused EYES OPEN RESTING-STATE 
+      - Resting-state / Eyes Open <-- We focused EYES OPEN RESTING-STATE
+          - For EEG, xx_desc-anc0qrsrm_xx : QRS artifacts removed (done by data provider) was used. 
       - checkerboard (15Hz)
       - gradCPT
       - Imagery
@@ -25,13 +26,12 @@ OpenNeuro ds006040: https://openneuro.org/datasets/ds006040/versions/1.0.1
 
 ROI-wise time-series data are located in Data folder of this repository.
 
-  - Among 28 subjects, we excluded 6 subjects: 7, 8, 11, 14, 28, 29 with interrupted signals during MRI ON period and excessive confounds in signal, probably due to movement.
-  - Due to interrupted signals at the beginning and end of EEG, we found # of TRs to be removed at the beginning and the end. Maximum TRs across the subjects were removed to ensure consistency in length for both modalities.\
-  - EEG underwent independent component analysis (ICA) to remove artifacts including muscle and eye movement, and line noise using MNE-Python.
-  - EEG underwent source localization using eLORETA using MNE-Python.
-  - Source-localized EEG time-series were filtered into the delta (1-4 Hz), theta (4-8 Hz), alpha (8-13 Hz), and beta (13-30 Hz) bands.
-  - fMRI underwent motion correction, and global signal, white matter, cerebrospinal fluid signal regression.
-  - ROI-wise time series extacted using 100-parcel Schaefer atlas from both modalities.
+  - Among 28 subjects, we excluded 6 subjects: 7, 8, 11, 14, 28, 29 with interrupted signals during MRI ON period and motion artifacts.
+  - Due to interrupted signals at the beginning and end of EEG, we found # of TRs to be removed at the beginning and the end. Maximum TRs across the subjects were removed to ensure consistency in length for both modalities.
+  - EEG was resampled to 250 Hz for initial cleaning and finally to 50 Hz for source analysis. A 60 Hz notch filter and a 1 Hz high-pass filter (for ICA) were applied. Data were re-referenced to a Common Average Reference (CAR).
+  - Independent Component Analysis (ICA) was performed (15 components) to manually identify and remove remaining eye movement, ECG, and muscle artifacts. A moving average detrending (10s window) was applied to the cleaned signal.
+  - Cortical sources were estimated using eLORETA based on the fsaverage template. A 3-layer BEM model and an ad-hoc noise covariance matrix were utilized.
+  - Time-series were extracted from 100 ROIs of the Schaefer atlas. The source-localized signals were band-pass filtered into Delta (1-4 Hz), Theta (5-8 Hz), Alpha (8-12 Hz), and Beta (13-24 Hz). Note: The Beta band was capped at 24 Hz to respect the Nyquist limit of the 50 Hz sampling rate.
 
 ## Analysis + Code
 
